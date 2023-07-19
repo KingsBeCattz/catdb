@@ -1,12 +1,12 @@
 import { TypedEmitter } from "tiny-typed-emitter"
 
-interface CatDataBaseOptions {
+interface KatDataBaseOptions {
     path: string,
     tables: string[]
 }
 
 interface Events {
-    start: (db: CatDataBase) => Promise<any> | any
+    start: (db: KatDataBase) => Promise<any> | any
     close: () => Promise<any> | any
     set: (key: string, value: any, table: string) => Promise<any> | any
     get: (key: string, table: string, output: any) => Promise<any> | any
@@ -18,13 +18,13 @@ interface Events {
     has: (key: string, table: string, output: any) => Promise<any> | any
 }
 
-export class CatDataBase extends TypedEmitter<Events> {
+export class KatDataBase extends TypedEmitter<Events> {
     path: string
     tables: string[]
     /**
      * Builds the Database
      */
-    constructor(options: CatDataBaseOptions)
+    constructor(options: KatDataBaseOptions)
 
     /**
      * Set a value
@@ -53,14 +53,39 @@ export class CatDataBase extends TypedEmitter<Events> {
     remove <T> (key: string, value: T, table: typeof this.tables[number]): Promise<any[]>
 
     /**
-     * Adds a value from the provided key and value
+     * Removes and return the first value from the provided key and table
+     */
+    shift (key: string, table: typeof this.tables[number]): Promise<any>
+
+    /**
+     * Adds values and return the new array value from the provided key and table using a index
+     */
+    unshift <T> (key: string, value: T | T[], table: typeof this.tables[number]): Promise<any>
+
+    /**
+     * Removes and return the last value from the provided key and table
+     */
+    pop (key: string, table: typeof this.tables[number]): Promise<any>
+
+    /**
+     * Adds a value from the provided key and table
      */
     add (key: string, value: number, table: typeof this.tables[number]): Promise<number>
 
     /**
-     * Substracts a value from the provided key and value
+     * Substracts a value from the provided key and table
      */
     sub (key: string, value: number, table: typeof this.tables[number]): Promise<number>
+
+    /**
+     * Multiply a value from the provided key and table
+     */
+    multi (key: string, value: number, table: typeof this.tables[number]): Promise<number>
+
+    /**
+     * Divide a value from the provided key and table
+     */
+    divide (key: string, value: number, table: typeof this.tables[number]): Promise<number>
 
     /**
      * Verify if the key exists in provided table

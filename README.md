@@ -22,6 +22,20 @@ db.on('start', () => {
 db.start() // let's start the class
 ```
 
+## Events
+The package has events for each function except `getTable`, `isValidTable`, `insert`, `ping` and `has`.
+- Structure of an event is:
+```js
+db.on('function', (...args) => { /*any*/ })
+```
+- Example using `set`, `get` and push:
+```js
+db.on('set', (key, value, table) => { /*any*/ })
+db.on('get', (key, table, res) => { /*any*/ })
+db.on('push', (key, value, table, res) => { /*any*/ })
+```
+The args depend on the function but are the same, except that at the end it is always what the function returns
+
 ## Methods
 ### Set
 Sets a value from the provided key on the table (Default table: `main`)

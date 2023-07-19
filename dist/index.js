@@ -58,7 +58,7 @@ class KatDataBase extends tiny_typed_emitter_1.TypedEmitter {
     async set(key, value, table = 'main') {
         if (!this.isValidTable(table))
             throw new SyntaxError('CATDB: Invalid table was provided');
-        this.emit('set', key, value, table);
+        this.emit('set', key, value, await table);
         return this.Set(key, value, table);
     }
     async Get(key, table = 'main') {
@@ -74,7 +74,7 @@ class KatDataBase extends tiny_typed_emitter_1.TypedEmitter {
         if (!this.isValidTable(table))
             throw new SyntaxError('CATDB: Invalid table was provided');
         let getted = await this.Get(key, table);
-        this.emit('get', key, table, getted);
+        this.emit('get', key, table, await getted);
         return getted;
     }
     async Delete(key, table = 'main') {
@@ -91,7 +91,7 @@ class KatDataBase extends tiny_typed_emitter_1.TypedEmitter {
         if (!this.isValidTable(table))
             throw new SyntaxError('CATDB: Invalid table was provided');
         let res = await this.Delete(key, table);
-        this.emit('delete', key, table, res);
+        this.emit('delete', key, table, await res);
         return res;
     }
     async Push(key, value, table = 'main') {
@@ -100,7 +100,8 @@ class KatDataBase extends tiny_typed_emitter_1.TypedEmitter {
         let array = await this.Get(key, table) || [];
         if (array && !Array.isArray(array))
             throw new SyntaxError('CATDB: Provided key is not an array');
-        array.push(value);
+        let m = Array.isArray(array) ? 'concat' : 'push';
+        array[m](value);
         this.Set(key, array, table);
         return array;
     }
@@ -108,7 +109,7 @@ class KatDataBase extends tiny_typed_emitter_1.TypedEmitter {
         if (!this.isValidTable(table))
             throw new SyntaxError('CATDB: Invalid table was provided');
         let array = await this.Push(key, value, table);
-        this.emit('push', key, value, table, array);
+        this.emit('push', key, value, table, await array);
         return array;
     }
     async Remove(key, value, table = 'main') {
@@ -119,9 +120,18 @@ class KatDataBase extends tiny_typed_emitter_1.TypedEmitter {
             throw new SyntaxError('CATDB: Provided key is not an array');
         if (!array)
             return this.Set(key, [], table);
-        const index = array.indexOf(value);
-        if (index > -1) {
-            array.splice(index, 1);
+        if (Array.isArray(value))
+            for (const v of value) {
+                const index = array.indexOf(v);
+                if (index > -1) {
+                    array.splice(index, 1);
+                }
+            }
+        else {
+            const index = array.indexOf(value);
+            if (index > -1) {
+                array.splice(index, 1);
+            }
         }
         return this.Set(key, array, table);
     }
@@ -129,8 +139,58 @@ class KatDataBase extends tiny_typed_emitter_1.TypedEmitter {
         if (!this.isValidTable(table))
             throw new SyntaxError('CATDB: Invalid table was provided');
         let array = this.Remove(key, value, table);
-        this.emit('remove', key, value, table, array);
+        this.emit('remove', key, value, table, await array);
         return array;
+    }
+    async Shift(key, table = 'main') {
+        if (!this.isValidTable(table))
+            throw new SyntaxError('CATDB: Invalid table was provided');
+        let array = await this.Get(key, table);
+        if (array && !Array.isArray(array))
+            throw new SyntaxError('CATDB: Provided key is not an array');
+        if (!array)
+            return undefined;
+        const res = array.shift();
+        this.Set(key, array, table);
+        return res;
+    }
+    async shift(key, table = 'main') {
+        const res = this.Shift(key, table);
+        this.emit('shift', key, table, await res);
+        return res;
+    }
+    async unShift(key, value, table = 'main') {
+        if (!this.isValidTable(table))
+            throw new SyntaxError('CATDB: Invalid table was provided');
+        let array = await this.Get(key, table);
+        if (array && !Array.isArray(array))
+            throw new SyntaxError('CATDB: Provided key is not an array');
+        if (!array)
+            return undefined;
+        array.unshift(value);
+        return this.Set(key, array, table);
+    }
+    async unshift(key, value, table = 'main') {
+        const res = this.unShift(key, value, table);
+        this.emit('unshift', key, value, table, (await res));
+        return res;
+    }
+    async Pop(key, table = 'main') {
+        if (!this.isValidTable(table))
+            throw new SyntaxError('CATDB: Invalid table was provided');
+        let array = await this.Get(key, table);
+        if (array && !Array.isArray(array))
+            throw new SyntaxError('CATDB: Provided key is not an array');
+        if (!array)
+            return undefined;
+        const res = array.pop();
+        this.Set(key, array, table);
+        return res;
+    }
+    async pop(key, table = 'main') {
+        const res = this.Pop(key, table);
+        this.emit('pop', key, table, await res);
+        return res;
     }
     async Add(key, value, table = 'main') {
         if (!this.isValidTable(table))
@@ -146,7 +206,7 @@ class KatDataBase extends tiny_typed_emitter_1.TypedEmitter {
         if (!this.isValidTable(table))
             throw new SyntaxError('CATDB: Invalid table was provided');
         let output = this.Add(key, value, table);
-        this.emit('add', key, value, table, output);
+        this.emit('add', key, value, table, await output);
         return output;
     }
     async Sub(key, value, table = 'main') {
@@ -163,7 +223,41 @@ class KatDataBase extends tiny_typed_emitter_1.TypedEmitter {
         if (!this.isValidTable(table))
             throw new SyntaxError('CATDB: Invalid table was provided');
         let output = this.Sub(key, value, table);
-        this.emit('sub', key, value, table, output);
+        this.emit('sub', key, value, table, await output);
+        return output;
+    }
+    async Multi(key, value, table = 'main') {
+        if (!this.isValidTable(table))
+            throw new SyntaxError('CATDB: Invalid table was provided');
+        if (isNaN(value))
+            throw new SyntaxError('CATDB: Provided value is not a number');
+        let n = await this.Get(key, table) || 0;
+        if (n && isNaN(n))
+            throw new SyntaxError('CATDB: Provided key is not a number');
+        return this.Set(key, (n * value), table);
+    }
+    async multi(key, value, table = 'main') {
+        if (!this.isValidTable(table))
+            throw new SyntaxError('CATDB: Invalid table was provided');
+        let output = this.Multi(key, value, table);
+        this.emit('multi', key, value, table, await output);
+        return output;
+    }
+    async Divide(key, value, table = 'main') {
+        if (!this.isValidTable(table))
+            throw new SyntaxError('CATDB: Invalid table was provided');
+        if (isNaN(value))
+            throw new SyntaxError('CATDB: Provided value is not a number');
+        let n = await this.Get(key, table) || 0;
+        if (n && isNaN(n))
+            throw new SyntaxError('CATDB: Provided key is not a number');
+        return this.Set(key, (n / value), table);
+    }
+    async divide(key, value, table = 'main') {
+        if (!this.isValidTable(table))
+            throw new SyntaxError('CATDB: Invalid table was provided');
+        let output = this.Divide(key, value, table);
+        this.emit('divide', key, value, table, await output);
         return output;
     }
     async has(key, table = 'main') {
