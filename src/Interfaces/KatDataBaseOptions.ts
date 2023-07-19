@@ -1,4 +1,4 @@
-export interface CatDataBaseOptions {
+export interface KatDataBaseOptions {
     path: string,
     tables: string[]
 }

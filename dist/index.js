@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CatDataBase = void 0;
+exports.KatDataBase = void 0;
 const tslib_1 = require("tslib");
 const lodash_1 = tslib_1.__importDefault(require("lodash"));
 const node_fs_1 = require("node:fs");
 const node_path_1 = require("node:path");
 const tiny_typed_emitter_1 = require("tiny-typed-emitter");
-class CatDataBase extends tiny_typed_emitter_1.TypedEmitter {
+class KatDataBase extends tiny_typed_emitter_1.TypedEmitter {
     path;
     tables;
     constructor(options) {
@@ -177,4 +177,4 @@ class CatDataBase extends tiny_typed_emitter_1.TypedEmitter {
         return Date.now() - before;
     }
 }
-exports.CatDataBase = CatDataBase;
+exports.KatDataBase = KatDataBase;

@@ -1,7 +1,7 @@
-import { CatDataBase } from '../index'
+import { KatDataBase } from '../index'
 
 export interface Events {
-    start: (db: CatDataBase) => Promise<any> | any
+    start: (db: KatDataBase) => Promise<any> | any
     close: () => Promise<any> | any
     set: (key: string, value: any, table: string) => Promise<any> | any
     get: (key: string, table: string, output: any) => Promise<any> | any

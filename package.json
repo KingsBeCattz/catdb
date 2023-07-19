@@ -1,5 +1,5 @@
 {
-  "name": "catdb",
+  "name": "katdb",
   "version": "1.0.0",
   "description": "A easy usage database using a similar usage like quick.db and json files",
   "main": "dist/index.js",

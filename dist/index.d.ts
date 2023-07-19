@@ -29,66 +29,66 @@ export class CatDataBase extends TypedEmitter<Events> {
     /**
      * Set a value
      */
-    set <T> (key: string, value: T, table: typeof this.tables[number])
+    set <T> (key: string, value: T, table: typeof this.tables[number]): Promise<T>
 
     /**
      * Gets a value from the provided key and table
      */
-    get (key: string, table: typeof this.tables[number])
+    get (key: string, table: typeof this.tables[number]): Promise<any>
 
     /**
      * Deletes a key from the provided table
      * @returns boolean
      */
-    delete(key: string, table: typeof this.tables[number])
+    delete(key: string, table: typeof this.tables[number]): Promise<boolean>
 
     /**
      * Pushs a value from the provided key and table
      */
-    push <T> (key: string, value: T, table: typeof this.tables[number])
+    push <T> (key: string, value: T, table: typeof this.tables[number]): Promise<any[]>
 
     /**
      * Removes a value from the provided key and table
      */
-    remove <T> (key: string, value: T, table: typeof this.tables[number])
+    remove <T> (key: string, value: T, table: typeof this.tables[number]): Promise<any[]>
 
     /**
      * Adds a value from the provided key and value
      */
-    add (key: string, value: number, table: typeof this.tables[number])
+    add (key: string, value: number, table: typeof this.tables[number]): Promise<number>
 
     /**
      * Substracts a value from the provided key and value
      */
-    sub (key: string, value: number, table: typeof this.tables[number])
+    sub (key: string, value: number, table: typeof this.tables[number]): Promise<number>
 
     /**
      * Verify if the key exists in provided table
      */
-    has (key: string, table: typeof this.tables[number])
+    has (key: string, table: typeof this.tables[number]): Promise<boolean>
 
     /**
      * Gets the latency of the database
      */
-    ping ()
+    ping (): Promise<number>
 
     /**
      * Gets all data in the provided table
      */
-    getTable(name: (typeof this.tables)[number])
+    getTable(name: (typeof this.tables)[number]): object | null
 
     /**
      * Inserts data on the provided table
      */
-    private insert(name: string, data: object)
+    private insert(name: string, data: object): void
 
     /**
      * Checks if is a valid table
      */
-    isValidTable(table: (typeof this.tables)[number])
+    isValidTable(table: (typeof this.tables)[number]): boolean
 
     /**
      * Starts the database
      */
-    start()
+    start(): void
 }

@@ -5,12 +5,12 @@ import { join } from 'node:path'
 import { TypedEmitter } from "tiny-typed-emitter"
 
 import { Events } from './Interfaces/Events'
-import { CatDataBaseOptions } from './Interfaces/CatDataBaseOptions'
+import { KatDataBaseOptions } from './Interfaces/KatDataBaseOptions'
 
-export class CatDataBase extends TypedEmitter<Events> {
+export class KatDataBase extends TypedEmitter<Events> {
     path: string;
     tables: string[];
-    constructor(options: CatDataBaseOptions){
+    constructor(options: KatDataBaseOptions){
         super();
         this.path = options?.path || './database';
         this.tables = options?.tables ? options?.tables.concat('main') : ['main'];
