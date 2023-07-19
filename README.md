@@ -85,8 +85,37 @@ db.remove('kingsbecats.packages','katdb','users') // Returns: [ 'hybridcommands'
 db.remove('kingsbecats.packages','hybridcommands','users') // Returns: [ ] (Promise)
 ```
 
+### Shift
+Removes and returns the first value from the provided key on the table (Default table: `main`)
+- Usage: `shift (key: string, table: string)`
+- Example:
+```js
+db.get('kingsbecats.packages','users') // Returns: [ 'katdb', 'hybridcommands' ] (Promise)
+db.shift('kingsbecats.packages','users') // Returns: 'katdb' (Promise)
+db.get('kingsbecats.packages','users') // Returns: [ 'hybridcommands' ] (Promise)
+```
+
+### Pop
+Removes and returns the last value from the provided key on the table (Default table: `main`)
+- Usage: `pop (key: string, table: string)`
+- Example:
+```js
+db.get('kingsbecats.packages','users') // Returns: [ 'katdb', 'hybridcommands' ] (Promise)
+db.pop('kingsbecats.packages','users') // Returns: 'hybridcommands' (Promise)
+db.get('kingsbecats.packages','users') // Returns: [ 'katdb' ] (Promise)
+```
+
+### unShift
+Adds at the begging the provided values from the provided key on the table (Default table: `main`)
+- Usage: `unshift (key: string, value: any, table: string)`
+- Example:
+```js
+db.get('kingsbecats.packages','users') // Returns: [ 'hybridcommands' ] (Promise)
+db.unshift('kingsbecats.packages','katdb','users') // Returns: [ 'katdb', 'hybridcommands' ] (Promise)
+```
+
 ### Add
-Adds a value from the provided key and value (Default table: `main`)
+Adds a value from the provided key and table (Default table: `main`)
 - Usage: `add (key: string, value: number, table: string)`
 - Example:
 ```js
@@ -94,11 +123,27 @@ db.add('kingsbecats.money',5,'users') // Returns: 5 (Promise)
 ```
 
 ### Sub
-Substracts a value from the provided key and value (Default table: `main`)
+Substracts a value from the provided key and table (Default table: `main`)
 - Usage: `sub (key: string, value: number, table: string)`
 - Example:
 ```js
 db.sub('kingsbecats.money',1,'users') // Returns: 4 (Promise)
+```
+
+### Multi
+Multiply a value from the provided key and table (Default table: `main`)
+- Usage: `multi (key: string, value: number, table: string)`
+- Example:
+```js
+db.multi('kingsbecats.money',2,'users') // Returns: 8 (Promise)
+```
+
+### Divide
+Divide a value from the provided key and table (Default table: `main`)
+- Usage: `divide (key: string, value: number, table: string)`
+- Example:
+```js
+db.divide('kingsbecats.money',2,'users') // Returns: 4 (Promise)
 ```
 
 ### Has
