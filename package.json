@@ -1,0 +1,35 @@
+{
+  "name": "catdb",
+  "version": "1.0.0",
+  "description": "A easy usage database using a similar usage like quick.db and json files",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KingsBeCattz/catdb.git"
+  },
+  "keywords": [
+    "database",
+    "quickdb"
+  ],
+  "author": "KingsBeCats",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KingsBeCattz/catdb/issues"
+  },
+  "homepage": "https://github.com/KingsBeCattz/catdb#readme",
+  "devDependencies": {
+    "@types/lodash": "^4.14.195",
+    "@types/node": "^20.4.2",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.6.0",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "tiny-typed-emitter": "^2.1.0"
+  }
+}
