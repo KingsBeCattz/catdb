@@ -167,7 +167,9 @@ class KatDataBase extends tiny_typed_emitter_1.TypedEmitter {
             throw new SyntaxError('CATDB: Provided key is not an array');
         if (!array)
             return undefined;
-        array.unshift(value);
+        if (!Array.isArray(value))
+            value = [value];
+        array.unshift(...value);
         return this.Set(key, array, table);
     }
     async unshift(key, value, table = 'main') {

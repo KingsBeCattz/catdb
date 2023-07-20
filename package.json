@@ -1,6 +1,6 @@
 {
   "name": "katdb",
-  "version": "1.0.0",
+  "version": "1.0.01",
   "description": "A easy usage database using a similar usage like quick.db and json files",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -9,18 +9,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/KingsBeCattz/catdb.git"
+    "url": "git+https://github.com/KingsBeCattz/katdb.git"
   },
   "keywords": [
     "database",
-    "quickdb"
+    "quickdb",
+    "json"
   ],
   "author": "KingsBeCats",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/KingsBeCattz/catdb/issues"
+    "url": "https://github.com/KingsBeCattz/katdb/issues"
   },
-  "homepage": "https://github.com/KingsBeCattz/catdb#readme",
+  "homepage": "https://github.com/KingsBeCattz/katdb#readme",
   "devDependencies": {
     "@types/lodash": "^4.14.195",
     "@types/node": "^20.4.2",

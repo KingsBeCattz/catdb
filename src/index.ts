@@ -178,7 +178,8 @@ export class KatDataBase extends TypedEmitter<Events> {
         let array: any[] = await this.Get(key, table);
         if ( array && !Array.isArray(array)) throw new SyntaxError('CATDB: Provided key is not an array');
         if ( !array ) return undefined
-        array.unshift(value);
+        if(!Array.isArray(value)) value = [value]
+        array.unshift(...(value as T[]));
         return this.Set(key, array, table)
     }
 

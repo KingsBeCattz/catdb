@@ -1,6 +1,11 @@
 # katdb
 A Database using json files and tables, same usage like quickdb
 
+## Contact me
+<a href="https://discord.com/users/1125490330679115847"><img src="https://img.shields.io/badge/-Discord-000000?labelColor=5568f2&logo=discord&logoColor=ffffff" alt="Discord Badge"/></a>
+<a href="https://twitter.com/kingsbcats"><img src="https://img.shields.io/badge/-Twitter-000000?labelColor=1da1f2&logo=twitter&logoColor=ffffff" alt="Twitter Badge"/></a>
+<a href="https://instagram.com/kingsbcattz"><img src="https://img.shields.io/badge/-Instagram-000000?labelColor=E4405F&logo=instagram&logoColor=ffffff" alt="Instagram Badge"/></a>
+
 ## Install
 ```fix
 npm i katdb
